@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: wayyan-zip-ingress
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`utils.tchlabs.net`)
+      priority: 1000
+      kind: Rule
+      services:
+        - name: wayyan-zip-service
+          port: 80
+  tls:
+    certResolver: myresolver
+    domains:
+    - main: utils.tchlabs.net

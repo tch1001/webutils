@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wayyan-zip-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wayyan-zip-pod
+  template:
+    metadata:
+      labels:
+        app: wayyan-zip-pod
+    spec:
+      containers:
+      - name: wayyan-zip-container
+        image: tch1001/wayyan_zip:v1
+        tty: true
+        ports:
+        - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wayyan-zip-service
+spec:
+  selector:
+    app: wayyan-zip-pod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+      #      nodePort: 30001
+  type: ClusterIP

@@ -1,0 +1,3 @@
+ssh ~ -p1001 -N -f -L 8001:127.0.0.1:8000\ndocker exec -it wayyan bash
+docker build . -t wayyan:latest
+docker run -it -p 8000:8000 wayyan:latest
